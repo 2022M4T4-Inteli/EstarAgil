@@ -25,8 +25,8 @@
 
 |--> documentos<br>
   &emsp;| --> outros <br>
-  &emsp;| T4_G4_V01_IoT_Document.pdf<br>
-  &emsp;| T4_G4_V01_IoT_Document.pdf<br>
+  &emsp;| T4_G3_V01_IoT_Document.pdf<br>
+  &emsp;| T4_G3_V01_IoT_Document.docx<br>
 |--> Source<br>
   &emsp;|--> T4_G4_V01_IoT_Development.cpp<br>
 | readme.md<br>
