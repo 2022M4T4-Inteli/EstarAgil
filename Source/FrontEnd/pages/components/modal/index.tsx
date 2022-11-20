@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReactModal from "react-modal";
+import { FiX } from "react-icons/fi";
 const customStyles = {
   content: {
     top: "50%",
@@ -10,27 +11,29 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "1px solid black",
+    borderRadius: "15px",
+    width: "50%",
   },
 };
-export default function ModalComponent() {
-  const [modalIsOpen, setIsOpen] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+interface Props {
+  modalIsOpen: boolean;
+  onClose: any;
+  children: any;
+}
+export default function ModalComponent(props: Props) {
   return (
     <ReactModal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={props.modalIsOpen}
+      onRequestClose={props.onClose}
+      shouldCloseOnOverlayClick={false}
       style={customStyles}
       contentLabel="Example Modal"
+      ariaHideApp={false}
     >
-      <h1>Teste</h1>
+      <FiX cursor={"pointer"} color={"red"} size={30} onClick={props.onClose} style={{"position":"absolute", "top":"5px", "right":"5px"}}></FiX>
+     {props.children}
     </ReactModal>
   );
 }

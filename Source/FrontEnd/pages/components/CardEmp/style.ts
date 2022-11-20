@@ -1,17 +1,26 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-  & + & {
-    margin-top: 15px;
-  }
   transition: 300ms;
   /* cursor: pointer; */
   height: 90px;
   width: 80%;
   border-radius: 5px;
   border: 3px solid #003169;
-  display: flex;
   cursor: pointer;
+  display: flex;
+  .content {
+    display: flex;
+    width: 100%;
+  }
+  margin-top: 15px;
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-right: 5px;
+  }
   .info div {
     display: flex;
   }
@@ -47,7 +56,6 @@ export const Card = styled.div`
     border-radius: 100%;
     object-fit: cover;
     border: 2px solid #000;
-
   }
 
   @media screen and (max-width: 600px) {

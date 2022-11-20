@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  /* body {
-    height: 100vh;
-    width: 100%;
-    font-family: "calibri";
-    margin: 0;
-    display: flex;
-  } */
   height: 85vh;
+
+  .back-button {
+    margin-top: 10px;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+cursor: pointer;
+    span{
+      margin-left: 5px;
+    }
+  }
   .main {
     height: 60vh;
     width: 80%;
@@ -46,9 +53,9 @@ export const Container = styled.div`
       transition: 300ms;
       text-transform: uppercase;
       border: none;
-    &:active{
-      transform: scale(1.05);
-    }
+      &:active {
+        transform: scale(1.05);
+      }
     }
     select {
       margin-top: 40px;

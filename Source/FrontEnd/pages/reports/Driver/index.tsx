@@ -1,15 +1,16 @@
 import Head from "next/head";
 import Image from "next/image";
-import CardEmpComponent from "./components/CardEmp";
-import StackedBarChart from "./components/StackedGraph";
-import { Container, Content } from "./style";
+import LineGraph from "../../components/LineGraph";
+import PieGraph from "../../components/PieGraph";
+import StackedBarChart from "../../components/StackedGraph";
+import { Container } from "./styles";
 
 function GraphCMSImageLoader({ src, width }: any) {
   const relativeSrc = (src: any) => src.split("/").pop();
 
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
-export default function Dashboard() {
+export default function DriverReport() {
   return (
     <div>
       <Container>
@@ -22,16 +23,17 @@ export default function Dashboard() {
               height={100}
               loader={GraphCMSImageLoader}
             />
-            <h1>Olá, Edvaldo!</h1>
-            <p>
-              Bem vindo ao menu inicial, aqui você pode acessar as atividades
-              ativas e visualizar os dados semanais de produtividade.
-            </p>
+            <h1>
+              Tarcisio Souza
+              <p>#444444</p>
+            </h1>
+
+            <p>Aqui está os indicadores do mês do manobrista Tarcisio Souza</p>
           </div>
         </div>
         <div>
           <div className="content-2">
-            <h1>Painel de gerenciamento</h1>
+            <h1>Tempo para entrega nos últimos 7 dias.</h1>
             <br />
             <br />
             <br />
@@ -57,15 +59,15 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <Content>
-          <h1>Colaboradores ativos</h1>
+        <div className="content-3">
+          <h1>Produtividade diária</h1>
+          <PieGraph />
           <br />
-          <div className="list-cards">
-            {[1, 2, 3, 4, 5, 6].map((e) => (
-              <CardEmpComponent key={e} />
-            ))}
-          </div>
-        </Content>
+          <br />
+          <h1>Produtividade mensal</h1>
+          <br />
+          <LineGraph />
+        </div>
       </Container>
     </div>
   );

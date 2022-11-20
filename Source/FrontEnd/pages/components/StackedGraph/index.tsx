@@ -7,7 +7,6 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -16,29 +15,6 @@ ChartJS.register(BarElement);
 let count = 1;
 const PillChartGradientFill = {
   id: "custom_canvas_gradient",
-  // afterRender: (chart: any) => {
-  //   count++;
-  //   console.log(count);
-  //   if (chart.config.options.stackedGradientPlugin) {
-  //     for (var i = 0; i < chart.config.data.datasets.length; i++) {
-  //       var dsMeta = chart.getDatasetMeta(i);
-  //       var dataset = chart.config.data.datasets[i];
-  //       const color = Object.values(CHART_COLORS)[i];
-  //       var darker = colord(color).darken(0.1).toHex();
-  //       var lighter = colord(color).lighten(0.1).toHex();
-
-  //       for (var j = 0; j < dataset.data.length; j++) {
-  //         var x = dsMeta.data[j].x;
-  //         var base = dsMeta.data[j].base;
-  //         const gradient = chart.ctx.createLinearGradient(base, 0, x, 0);
-  //         gradient.addColorStop(0, lighter);
-  //         gradient.addColorStop(1, darker);
-  //         dataset.backgroundColor[j] = gradient;
-  //       }
-  //     }
-  //   }
-  //   // chart.update();
-  // }
 };
 
 ChartJS.register(PillChartGradientFill);
@@ -53,8 +29,6 @@ const borderRadiusAllCorners = {
 
 const StackedBarChart = () => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
-
-  let chartRef = useRef<ChartJS>(null);
 
   const options: any = {
     stackedGradientPlugin: true,
