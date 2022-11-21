@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/:manager_name', (req,res,next) => {
     const name_selected = req.params.manager_name;
 
-    if( name_selected === 'Caze'){
+    if( name_selected === 'teste'){
         res.status(200).send({
             message: 'The vallet name is',
             id:  name_selected
@@ -13,7 +13,7 @@ router.get('/:manager_name', (req,res,next) => {
     }
     else{
         res.status(200).send({
-            mensagem: 'Isnt Caze'
+            mensagem: 'Isnt teste'
         })
     }    
 })
