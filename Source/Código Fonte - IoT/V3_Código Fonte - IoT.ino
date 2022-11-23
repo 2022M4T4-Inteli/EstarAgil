@@ -34,8 +34,9 @@ void onFtmReport(arduino_event_t *event) {
   if (ftmSuccess) {
     //Em caso de sucesso, haverá o cálculo em metros da distância entre esp
     Serial.printf("FTM: Distância Estimada: %.2f m, Tempo de Retorno: %u ns\n", (float)report->dist_est / 100.0 - 39.8, report->rtt_est); // Cálculo da distância.
-    Serial.println(((float)report->dist_est / 100.0 - 39.8) / 2.7); //Transformando distância em tempos estimado
-// Ponteiro para Relatório FTM com múltiplas entradas, vai ser liberado após o uso
+    Serial.println(((float)report->dist_est / 100.0 - 39.8) / 2.0); //Transformando distância em tempos estimado por m/s.
+    
+    // Ponteiro para Relatório FTM com múltiplas entradas, vai ser liberado após o uso.
     delay(1000);
     free(report->ftm_report_data);
   } else {
