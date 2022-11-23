@@ -8,7 +8,7 @@ function GraphCMSImageLoader({ src, width }: any) {
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
 
-export default function CardEmpComponent({ ...props }) {
+export default function CardRowComponent({ ...props }) {
   return (
     <Card>
       <div className="content" onClick={props.onClick}>
@@ -28,12 +28,12 @@ export default function CardEmpComponent({ ...props }) {
             <p>João Pedro</p>
           </div>
           <div>
-            <b>ID:&nbsp;</b>
-            <p>4444444</p>
+            <b>Estimativa:&nbsp;</b>
+            <p>10</p>
           </div>
           <div>
-            <b>Status:&nbsp;</b>
-            <p>Ativo</p>
+            <b>Prisma:&nbsp;</b>
+            <p>230</p>
           </div>
         </div>
       </div>

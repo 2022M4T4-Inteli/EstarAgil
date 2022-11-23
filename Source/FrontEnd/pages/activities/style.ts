@@ -7,15 +7,16 @@ export const DetailsModalContainer = styled.div`
     align-items: center;
     justify-content: space-evenly;
     height: 300px;
+    
   }
   .info {
     width: 50%;
     h4 {
       text-transform: uppercase;
-      margin: 10px 0;
+      margin: 5px 0;
     }
     .progress {
-      margin: 15px 0;
+      margin: 10px 0;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -109,6 +110,8 @@ export const ModalContainer = styled.div`
 `;
 export const Container = styled.div`
   .list {
+    overflow: hidden;
+    overflow-y: auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     /* gap: 10px; */

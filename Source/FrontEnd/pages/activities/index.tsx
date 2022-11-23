@@ -71,7 +71,7 @@ export default function Activities() {
             <div className="info">
               <h2>Estou a caminho!</h2>
               <br />
-              <p>Chegando em 30 minutos</p>
+              <p>Chegando em 10 minutos</p>
 
               <div className="progress">
                 <span className="active"></span>
@@ -82,8 +82,7 @@ export default function Activities() {
 
               <h4>últimas informações:</h4>
 
-              <p>Cliente: Maria Aparecida</p>
-              <p>Placa: XXXX-XXX</p>
+              <p>Prisma: 230</p>
               <p>Horário de saída: 14:50</p>
               <p>Ultima corrida: 24/10/2022 às 14:50</p>
             </div>

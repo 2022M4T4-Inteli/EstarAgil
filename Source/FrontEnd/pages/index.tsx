@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import CardEmpComponent from "./components/CardEmp";
+import CardRowComponent from "./components/CardRow";
 import StackedBarChart from "./components/StackedGraph";
 import { Container, Content } from "./style";
 
@@ -40,29 +41,29 @@ export default function Dashboard() {
             <div className="graph-captions">
               <div className="item">
                 <div></div>
-                <p>Até 30m</p>
+                <p>Até 5m</p>
               </div>
               <div className="item">
                 <div></div>
-                <p>entre 60m e 90m</p>
+                <p>entre 5m e 15m</p>
               </div>
               <div className="item">
                 <div></div>
-                <p>entre 30m e 60m</p>
+                <p>entre 15m e 25m</p>
               </div>
               <div className="item">
                 <div></div>
-                <p>mais que 90m</p>
+                <p>mais que 25m</p>
               </div>
             </div>
           </div>
         </div>
         <Content>
-          <h1>Colaboradores ativos</h1>
+          <h1>Fila de Carros</h1>
           <br />
           <div className="list-cards">
             {[1, 2, 3, 4, 5, 6].map((e) => (
-              <CardEmpComponent key={e} />
+              <CardRowComponent key={e} />
             ))}
           </div>
         </Content>

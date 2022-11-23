@@ -23,8 +23,8 @@ export default function Reports() {
               id=""
               onChange={(event) => setSelected(event.target.value)}
             >
-              <option value="">select</option>
-              <option value="">João</option>
+              <option value="">Tarcisio Souza</option>
+              <option value="">João Pedro</option>
             </select>
             <button className="btn" onClick={() => setShowReportValue(true)}>
               CONFIRMAR

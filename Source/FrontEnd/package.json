@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@pnp/graph": "^3.9.0",
+    "@pnp/sp": "^3.9.0",
     "@types/node": "18.11.9",
-    "@types/react": "18.0.25",
-    "@types/react-dom": "18.0.8",
     "@types/react-modal": "^3.13.1",
     "@types/styled-components": "^5.1.26",
     "@uploadcare/nextjs-loader": "^0.4.0",
@@ -29,6 +29,8 @@
     "typescript": "4.8.4"
   },
   "devDependencies": {
+    "@types/react": "^18.0.25",
+    "@types/react-dom": "^18.0.9",
     "babel-plugin-styled-components": "^2.0.7"
   }
 }

@@ -55,7 +55,7 @@ export const data = {
 const LineGraph = () => {
   return (
     <div style={{ width: "80%" }}>
-      <Line options={options} data={data} />;
+      <Line options={options} data={data} />
     </div>
   );
 };
