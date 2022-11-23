@@ -44,7 +44,7 @@ export default function Activities() {
               <label htmlFor="name">Nome:</label>
               <input type="text" id="name" />
 
-              <label htmlFor="id">ID:</label>
+              <label htmlFor="id">RFID:</label>
               <input type="text" id="id" />
             </div>
 
