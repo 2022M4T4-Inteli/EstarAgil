@@ -33,36 +33,43 @@ void onFtmReport(arduino_event_t *event) {
   ftmSuccess = report->status == FTM_STATUS_SUCCESS;
   if (ftmSuccess) {
     //Em caso de sucesso, haverá o cálculo em metros da distância entre esp
-    Serial.printf("FTM Estimate: Distance: %.2f m, Return Time: %u ns\n", (float)report->dist_est / 100.0 - 39.8, report->rtt_est); // Cálculo da distância.
-    // Ponteiro para Relatório FTM com múltiplas entradas, vai ser liberado após o uso
+    Serial.printf("FTM: Distância Estimada: %.2f m, Tempo de Retorno: %u ns\n", (float)report->dist_est / 100.0 - 39.8, report->rtt_est); // Cálculo da distância.
+    Serial.println(((float)report->dist_est / 100.0 - 39.8) / 2.7); //Transformando distância em tempos estimado
+// Ponteiro para Relatório FTM com múltiplas entradas, vai ser liberado após o uso
+    delay(1000);
     free(report->ftm_report_data);
   } else {
     Serial.print("FTM Error: "); // Em caso de não sucesso, haverá mensagem de Error
     Serial.println(status_str[report->status]);
+    delay(1000);
+    Serial.println("WiFi foi desconectado");
     digitalWrite(led_red, HIGH);//PISCARÁ LED VERMELHO QUANDO NÃO CONECTAR
     delay(50);
     digitalWrite(led_red, LOW);//PISCARÁ LED VERMELHO QUANDO NÃO CONECTAR
     delay(50);
-
-  }
+}
 
   xSemaphoreGive(ftmSemaphore); //Sinal de que o relatório foi recebido
 }
 
-// Booleano que inicia sessão do FTM e espera pelo Relatório FTM
+// Função que inicia sessão do FTM e espera pelo Relatório FTM
 void getFtmReport(){
-  if(!WiFi.initiateFTM(FTM_FRAME_COUNT, FTM_BURST_PERIOD)){
-    Serial.println("FTM Error: Initiate Session Failed");
-    // return false; // Em caso de não sucesso, irá retornar Error
-    // Serial.println(status_str[report->status]);
-    digitalWrite(led_red, HIGH);//PISCARÁ LED VERMELHO QUANDO NÃO CONECTAR
-    delay(50);
-    digitalWrite(led_red, LOW);//PISCARÁ LED VERMELHO QUANDO NÃO CONECTAR
-    delay(50);
+  if(WiFi.initiateFTM(FTM_FRAME_COUNT, FTM_BURST_PERIOD)){
+    Serial.println("WiFi funcionando e distância demonstrada abaixo");
+    xSemaphoreTake(ftmSemaphore, portMAX_DELAY) == pdPASS && ftmSuccess;
+    Serial.println(" ");
   }
   else{
-    xSemaphoreTake(ftmSemaphore, portMAX_DELAY) == pdPASS && ftmSuccess;
-  }//Em caso de sucesso irá aguardar o sinal de que o relatório foi recebido e retornar o verdadeiro.
+
+    Serial.println("FTM Error: Falha ao iniciar sessão");
+    delay(1000);
+
+    digitalWrite(led_red, HIGH);//PISCARÁ LED VERMELHO QUANDO NÃO CONECTAR
+    delay(25);
+    digitalWrite(led_red, LOW);//PISCARÁ LED VERMELHO QUANDO NÃO CONECTAR
+    delay(25);
+
+  } //Em caso de sucesso irá aguardar o sinal de que o relatório foi recebido e retornar o verdadeiro.
 }
 
 //Término das funções para reconhecer o Wifi.
@@ -154,41 +161,6 @@ class LeitorRFID{
       cartaoJaLido = 0;
       iniciar = 10;
     }
-
-    //
-    void listI2CPorts(){
-      Serial.println("\nI2C Scanner");
-      byte error, address;
-      int nDevices;
-      Serial.println("Scanning...");
-      nDevices = 0;
-      for(address = 1; address < 127; address++ ) {
-        Wire.beginTransmission(address);
-        error = Wire.endTransmission();
-        if (error == 0) {
-          Serial.print("I2C device found at address 0x");
-          if (address<16) {
-            Serial.print("0");
-          }
-          Serial.println(address,HEX);
-          nDevices++;
-        }
-        else if (error==4) {
-          Serial.print("Unknow error at address 0x");
-          if (address<16) {
-            Serial.print("0");
-          }
-          Serial.println(address,HEX);
-        }
-      }
-      
-      if (nDevices == 0) {
-        Serial.println("No I2C devices found\n");
-      }
-      else {
-        Serial.println("done\n");
-      }
-    };
 };
 LeitorRFID *leitor = NULL;
 //////////////////////////////
@@ -206,21 +178,53 @@ void setup() {
   leitor = new LeitorRFID(&rfidBase);
 
 // Criar semáforo binário (inicializado obtido e pode ser obtido/fornecido de qualquer thread/ISR)
-  ftmSemaphore = xSemaphoreCreateBinary();
-  // Listen for FTM Report events
-  WiFi.onEvent(onFtmReport, ARDUINO_EVENT_WIFI_FTM_REPORT);
-  // Conecta ao AP que tem FTM Habilitado
-  Serial.println("Connecting to FTM Responder");
+//caso o ESP encontre a rede WiFi Rede_quarteto, ele se conecta e imprime a distância.
+  if(WiFi.status() !=WL_CONNECTED){
+    ftmSemaphore = xSemaphoreCreateBinary();
+    // Listen for FTM Report events
+    WiFi.onEvent(onFtmReport, ARDUINO_EVENT_WIFI_FTM_REPORT);
+    // Conecta ao AP que tem FTM Habilitado
+    Serial.println("Connecting to FTM Responder");
 
-  WiFi.begin("Rede_quarteto", "Rede_quarteto4"); // login e senha conforme o esp
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    WiFi.begin("Rede_quarteto", "Rede_quarteto4"); // login e senha conforme o esp
+    if (WiFi.begin() != WL_CONNECTED) { //Verifica se existe alguma conexão
+      WiFi.disconnect();  //Caso negativo, confirma a desconexão
+      WiFi.begin("Estaparado", "estaparado123"); // login e senha conforme o esp
+      // connect(); //Tenta uma reconexão
+    }
+}
+
+  // else if(WiFi.status() != WL_CONNECTED){
+  //   delay(500);
+  //   ftmSemaphore = xSemaphoreCreateBinary();
+  //   // Listen for FTM Report events
+  //   WiFi.onEvent(onFtmReport, ARDUINO_EVENT_WIFI_FTM_REPORT);
+  //   // Conecta ao AP que tem FTM Habilitado
+  //   Serial.println("Connecting to FTM Responder");
+  //   WiFi.begin("Estaparado", "estaparado123"); // login e senha conforme o esp
+  // }
+  
+  // else if(WiFi.status() != WL_CONNECTED) {
+  //   delay(500);
+  //   ftmSemaphore = xSemaphoreCreateBinary();
+  //   // Listen for FTM Report events
+  //   WiFi.onEvent(onFtmReport, ARDUINO_EVENT_WIFI_FTM_REPORT);
+  //   // Conecta ao AP que tem FTM Habilitado
+  //   Serial.println("Connecting to FTM Responder");
+  //   WiFi.begin("Estaparado1", "estaparado321"); // login e senha conforme o esp
+      while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
       digitalWrite(led_red, HIGH);
       delay(80);
       digitalWrite(led_red, LOW);
       delay(80);
-  }
+    }
+  // }
+
+  // Criar while com os 4 esp aqui
+
+  // Criar for para buscar a conexão dos esp's
   Serial.println("");
   Serial.println("WiFi Connected");
   Serial.print("Initiating FTM session with Frame Count ");
