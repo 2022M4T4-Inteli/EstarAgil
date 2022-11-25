@@ -1,50 +1,27 @@
-//Import libraries
-const express = require('express');
-const router = express.Router();
+//Import database
+const db = require('../database/db');
 
-//Reading vallet list
-router.get('/', (req,res) => {
+//Testando controller
+exports.test = (req,res) =>
+{
     res.status(200).send({
-        message: 'Vallet route get is running'
+        message: 'Teste ok'
     })
-})
+}
 
 //Adding a vallet
-router.post('/', (req,res) =>{
+  exports.addVallet = async (req,res) =>{
+    const {vallet_name,vallet_last_name,manager_id,rfid_code} = req.body
+    const { rows } =  await db.query(
+        "INSERT INTO vallet (vallet_name,vallet_last_name,manager_id,rfid_code) VALUES ($1, $2, $3, $4)",
+        [vallet_name, vallet_last_name, manager_id, rfid_code]
+    );
     res.status(200).send({
-        message: 'Vallet route post is running'
+        message: 'Vallet added sucessfully',
+        body:{
+            vallet : {
+                vallet_name,vallet_last_name,manager_id,rfid_code
+            }
+        }
     })
-})
-
-//Reading a vallet
-router.get('/:vallet_name', (req,res,next) => {
-    const name_selected = req.params.vallet_name;
-
-    if( name_selected === 'Caze'){
-        res.status(200).send({
-            message: 'The vallet name is',
-            id:  name_selected
-        });
-    }
-    else{
-        res.status(200).send({
-            mensagem: 'Isnt Caze'
-        })
-    }    
-})
-
-// Update the vallet
-router.patch('/',(req,res) => {
-    res.status(201).send({
-        message : 'Vallet route patch is running'
-    })
-})
-
-// Delete the vallet
-router.delete('/',(req,res) => {
-    res.status(201).send({
-        message : 'Vallet route delete is running'
-    })
-})
-
-module.exports = router;
+  }

@@ -1,0 +1,32 @@
+1 - Bibliotecas necessárias:
+
+Iniciar servidor:
+npm install express
+npm install express-promise-router
+
+Admnistrar váriaveis ambientes
+npm install dotenv
+
+Visualizar status e erros no console do VSCODE:
+npm install morgan
+
+Biblioteca para acessar banco de dados:
+npm install pg
+
+Atualizar servidor sem precisar fechar o código:
+npm install nodemon
+
+Setup padrão
+npm install cors
+npm install body-parser
+
+2 - Conectar com o banco de dados:
+
+Para conectar o banco de dados é preciso primeiro inserir sua senha no aplicativo (pgAdmin 4) para ligar
+o servidor do banco de dados.
+Após isso, criar um arquivo na pasta do backend chamada .env, aonde você deverá colocar a seguinte estrutura:
+
+DATABASE_URL=postgres://{db_username}:{db_password}@{host}:{port}/{db_name}
+
+Assim irá conectar ao banco de dados e você poderá começar a utilizar a API.
+

@@ -3,11 +3,11 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
-//Creating routes path
-const managerRoute = require('./controllers/manager');
-const valletRoute = require('./controllers/vallet');
-const serviceRoute = require('./controllers/service');
+//API Routes
+const index = require('./routes/index');
+const valletRoute = require('./routes/valletRoutes');
 
 //Monitoring requests in console
 app.use(morgan('dev'));
@@ -17,40 +17,28 @@ app.use(bodyParser.urlencoded({ extended : false}));
 app.use(bodyParser.json());
 
 // Setup cors
-app.use((req,res,next) =>{
-    res.header('Acces-Control-Allow-Origin','*');
-    res.header(
-        'Acces-Control-Allow-Header',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
+app.use(cors());
 
-    if (req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods','PUT,POST,PATCH,DELETE,GET');
-        return res.status(200).send({});
-    }
-    next();
-})
-
-//Calling routes path
-app.use('/manager', managerRoute);
-app.use('/vallet',valletRoute);
-app.use('/service', serviceRoute);
+//Calling routes
+app.use(index);
+app.use('/api',valletRoute);
 
 //Error status
 app.use((req,res, next) => {
     const error = new Error('Não encontrado');
     error.status = 404;
     next(error);
-})
-
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    return res.send({
-        error: {
-            message : error.message
-        }
-    })
-})
+ })
+ 
+ app.use((error, req, res, next) => {
+     res.status(error.status || 500);
+     return res.send({
+         error: {
+             message : error.message
+         }
+     })
+ })
+ 
 
 //Export to index
 module.exports = app;
