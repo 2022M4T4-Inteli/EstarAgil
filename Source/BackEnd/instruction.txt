@@ -12,6 +12,7 @@ npm install morgan
 
 Biblioteca para acessar banco de dados:
 npm install pg
+npm install pg-pool
 
 Atualizar servidor sem precisar fechar o código:
 npm install nodemon

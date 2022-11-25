@@ -10,9 +10,7 @@ const pool = new Pool({
 });
 
 pool.on('connect',() => {
-    error?
-    console.log(`There was an error while starting database...\n ${error}`) :
-    console.log(' 🚀 Database was connected');
+    console.log('Database was connected');
 });
 
 module.exports = {
