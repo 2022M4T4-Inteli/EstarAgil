@@ -74,14 +74,20 @@ exports.deleteValletById = async (req, res) => {
 
 // //Update vallet
 exports.updateValletById = async (req,res) =>{
-    const {manager_id,vallet_id} = req.params
-    const {vallet_name, rfid_code} = req.body;
-    const {rows} = await db.query(
-        'UPDATE vallet SET vallet_name = $1, rfid_code = $2 WHERE fk_manager_id = $3 AND vallet_id = $4',
-        [vallet_name, rfid_code, manager_id, vallet_id]
-    );
-    res.status(200).send({
-        message: " The vallet data was updated!"
-    })
+    try{
+        const {manager_id,vallet_id} = req.params
+        const {vallet_name, rfid_code} = req.body;
+        const {rows} = await db.query(
+            'UPDATE vallet SET vallet_name = $1, rfid_code = $2 WHERE fk_manager_id = $3 AND vallet_id = $4',
+            [vallet_name, rfid_code, manager_id, vallet_id]
+        );
+        res.status(200).send({
+            message: " The vallet data was updated!"
+        })
+    }catch{
+        res.status(500).send({
+            error: "Database error while registering user!",
+        })
+    }
 }
 
