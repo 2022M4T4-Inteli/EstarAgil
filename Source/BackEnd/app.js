@@ -8,6 +8,7 @@ const cors = require('cors');
 //API Routes
 const index = require('./routes/index');
 const managerRoute = require('./routes/managerRoutes');
+const valletRoute = require('./routes/valletRoutes')
 
 //Monitoring requests in console
 app.use(morgan('dev'));
@@ -22,6 +23,7 @@ app.use(cors());
 //Calling routes
 app.use(index);
 app.use('/api',managerRoute);
+app.use('/api',valletRoute);
 
 //Error status
 app.use((req,res, next) => {

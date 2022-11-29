@@ -2,55 +2,86 @@
 const db = require('../database/db');
 
 
-//Adding a vallet
-  exports.addVallet = async (req,res) =>{
-    const {vallet_name,manager_id,rfid_code} = req.body
-    const { rows } =  await db.query(
-        "INSERT INTO vallet (vallet_name,manager_id,rfid_code) VALUES ($1, $2, $3)",
-        [vallet_name, manager_id, rfid_code]
-    );
-    res.status(200).send({
-        message: 'Manager added sucessfully',
-        body:{
-            vallet : {
-                vallet_name,manager_id,rfid_code
+//Adding a vallet according to manager id params
+exports.addVallet = async (req,res) =>{
+    try{
+        const {manager_id} = req.params
+        const {vallet_name,rfid_code} = req.body
+        const { rows } =  await db.query(
+            "INSERT INTO vallet (vallet_name,fk_manager_id,rfid_code) VALUES ($1, $2, $3)",
+            [vallet_name,manager_id, rfid_code]
+        );
+        res.status(200).send({
+            message: 'Manager added sucessfully',
+            body:{
+                vallet : {
+                    vallet_name,rfid_code
+                },
+                manager:{
+                    manager_id
+                }
             }
-        }
-    })
-  }
+        })
+    } catch{
+        res.status(500).send({
+            error: "Database error while registering user!",
+        })
+    }
+}
 
-//View vallets
-exports.viewVallets = async (req,res) =>
-{
-    const response = await db.query('SELECT * FROM vallet ORDER BY vallet_name ASC');
-    res.status(200).send(response.rows);
+// //View vallets
+exports.valletsByManager = async (req,res) =>
+{   
+    try{
+        const {manager_id} = req.params
+        const response = await db.query('SELECT * FROM vallet WHERE fk_manager_id = $1 ORDER BY vallet_name ASC',[manager_id]);
+        res.status(200).send(response.rows);
+    } catch{
+        res.status(500).send({
+            error: "Database error while registering user!",
+        })
+    }
 }
 
 //View vallets
-exports.namesVallets = async (req,res) =>
+exports.valletsById = async (req,res) =>
 {
-    const response = await db.query('SELECT vallet_name FROM vallet ORDER BY vallet_name ASC');
-    res.status(200).send(response.rows);
+    try{
+        const {manager_id,vallet_id} = req.params
+        const response = await db.query('SELECT * FROM vallet WHERE fk_manager_id = $1 AND vallet_id = $2',
+        [manager_id,vallet_id]);
+        res.status(200).send(response.rows);
+    } catch{
+        res.status(500).send({
+            error: "Database error while registering user!",
+        })
+    }
 }
 
 //Delete vallets
 exports.deleteValletById = async (req, res) => {
-    const id_vallet = parseInt(req.params.id);
-    await db.query('DELETE FROM vallet WHERE id_vallet = $1',
-    [id_vallet]);
-    res.status(200).send({message:'Vallet deleted successfully!'})
+    try{
+        const {manager_id,vallet_id} = req.params
+        const response = await db.query('DELETE FROM vallet WHERE fk_manager_id = $1 AND vallet_id = $2',
+        [manager_id,vallet_id]);
+        res.status(200).send({message:'Vallet deleted successfully!'})
+    }catch{
+        res.status(500).send({
+            error: "Database error while registering user!",
+        })
+    }
 }
 
-//Update vallet
-exports.updateVallet = async (req,res) =>
-{
-    const {vallet_name, vallet_status, manager_id, rfid_code, id_vallet} = req.body;
-    const response = await db.query(
-        'UPDATE vallet SET vallet_name = $1, vallet_status = $2, manager_id = $3, rfid_code = $4 WHERE id_vallet = $5',
-        [vallet_name, vallet_status, manager_id, rfid_code, id_vallet]
+// //Update vallet
+exports.updateValletById = async (req,res) =>{
+    const {manager_id,vallet_id} = req.params
+    const {vallet_name, rfid_code} = req.body;
+    const {rows} = await db.query(
+        'UPDATE vallet SET vallet_name = $1, rfid_code = $2 WHERE fk_manager_id = $3 AND vallet_id = $4',
+        [vallet_name, rfid_code, manager_id, vallet_id]
     );
     res.status(200).send({
-        message: " The vallet information was updated!"
+        message: " The vallet data was updated!"
     })
 }
 
