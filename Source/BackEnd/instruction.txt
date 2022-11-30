@@ -21,6 +21,10 @@ Setup padrão
 npm install cors
 npm install body-parser
 
+Validação de usuário
+npm install bycrpt
+npm install jsonwebtoken
+
 2 - Conectar com o banco de dados:
 
 Para conectar o banco de dados é preciso primeiro inserir sua senha no aplicativo (pgAdmin 4) para ligar
