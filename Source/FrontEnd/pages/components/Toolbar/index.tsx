@@ -9,12 +9,15 @@ import logo from "../../assets/horizontal_logo.svg";
 import logout from "../../assets/logout.svg";
 import { Toolbar } from "./styles";
 
+//items do toolbar
 const MENU_LIST = [
   { text: "Menu", href: "/" },
   { text: "Atividades", href: "/activities" },
   { text: "Relatórios", href: "/reports" },
 ];
 
+
+//função que renderizá o componente de toolbar na tela
 export default function ToolbarComponent({ ...props }) {
   const [navActive, setNavActive] = useState(true);
   const [activeIdx, setActiveIdx] = useState(0);
@@ -43,27 +46,4 @@ export default function ToolbarComponent({ ...props }) {
       </button>
     </Toolbar>
   );
-}
-// <Link
-//     onClick={() => {
-//       setActiveIdx(idx);
-//       setNavActive(false);
-//     }}
-//     href={"/activities"}
-//   >
-//     Atividades
-//   </Link>
-//   <Link
-//     onClick={() => {
-//       setActiveIdx(idx);
-//       setNavActive(false);
-//     }}
-//     href={"/reports"}
-//   >
-//     Relatórios
-//   </Link>
-{
-  /* <a href="javascript:void(0);" className="icon" onclick="myFunction()">
-  <i className="fa fa-bars"></i>
-    </a> */
 }

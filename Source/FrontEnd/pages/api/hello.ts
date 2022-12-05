@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 type Data = {
   name: string
 }
-
+//aqui ficará todas as apis de integração com o back-end
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>

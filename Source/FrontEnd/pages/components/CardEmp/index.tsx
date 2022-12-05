@@ -2,12 +2,12 @@ import Image from "next/image";
 import { Card } from "./style";
 
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-function GraphCMSImageLoader({ src, width }: any) {
-  const relativeSrc = (src: any) => src.split("/").pop();
 
+function GraphCMSImageLoader({ src, width }: any) {
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
 
+//função que renderiza um componente do card do motorista
 export default function CardEmpComponent({ ...props }) {
   return (
     <Card>

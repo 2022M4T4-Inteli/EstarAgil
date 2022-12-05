@@ -22,6 +22,8 @@ interface Props {
   onClose: any;
   children: any;
 }
+
+//função que retorna um modal pre-configurado
 export default function ModalComponent(props: Props) {
   return (
     <ReactModal

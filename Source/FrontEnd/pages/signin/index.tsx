@@ -1,12 +1,14 @@
 import Image from "next/image";
 import logo from "../assets/vertical_logo.png";
 import bg from "../assets/background.png";
-import { Background } from "./style";
-function GraphCMSImageLoader({ src, width }: any) {
-  const relativeSrc = (src: any) => src.split("/").pop();
 
+//importação de componentes de estilos 
+import { Background } from "./style";
+//função que retorna o caminho da imagem a ser baixada
+function GraphCMSImageLoader({ src, width }: any) {
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
+//Função responsável por redenrizar a tela de atividades
 export default function Activities() {
   return (
     <Background>

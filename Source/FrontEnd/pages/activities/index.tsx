@@ -5,12 +5,12 @@ import { useState } from "react";
 import { Container, ModalContainer, DetailsModalContainer } from "./style";
 import Image from "next/image";
 
+//função para download da iamgem do card
 function GraphCMSImageLoader({ src, width }: any) {
-  const relativeSrc = (src: any) => src.split("/").pop();
-
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
 
+//função que retorna todas a tela de todas as atividades de todos os motoristas
 export default function Activities() {
   const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
   const [createModalIsOpen, setCreateModalIsOpen] = useState(false);

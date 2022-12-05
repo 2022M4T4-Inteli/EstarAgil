@@ -5,11 +5,14 @@ import PieGraph from "../../components/PieGraph";
 import StackedBarChart from "../../components/StackedGraph";
 import { Container } from "./styles";
 
+//função para download da imagem
 function GraphCMSImageLoader({ src, width }: any) {
-  const relativeSrc = (src: any) => src.split("/").pop();
+  // const relativeSrc = (src: any) => src.split("/").pop();
 
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
+
+//função que retorna o componente de relatorio do motorista, tela que apresenta dados mais detalhados
 export default function DriverReport() {
   return (
     <div>

@@ -27,6 +27,8 @@ const borderRadiusAllCorners = {
   bottomRight: borderRadius,
 };
 
+
+//função que retorna um grafico de barras na horizontal configurado
 const StackedBarChart = () => {
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 

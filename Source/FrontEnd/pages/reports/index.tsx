@@ -3,6 +3,8 @@ import DriverReport from "./Driver";
 import { Container } from "./style";
 import { FiArrowLeft, FiArrowLeftCircle } from "react-icons/fi";
 
+
+//função que retorna a tela de selecioanr e detalhar as atividades de um motorista;
 export default function Reports() {
   const [showReport, setShowReportValue] = useState<boolean>(false);
   const [selected, setSelected] = useState("");

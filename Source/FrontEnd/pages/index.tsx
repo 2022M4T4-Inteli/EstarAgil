@@ -4,11 +4,13 @@ import CardEmpComponent from "./components/CardEmp";
 import StackedBarChart from "./components/StackedGraph";
 import { Container, Content } from "./style";
 
+//função que retorna o caminho da imagem a ser feito download para exibição
 function GraphCMSImageLoader({ src, width }: any) {
-  const relativeSrc = (src: any) => src.split("/").pop();
 
   return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
 }
+
+//função para retorno do componente dashaboard. Onde se encontram um resumo da principais funções do app.
 export default function Dashboard() {
   return (
     <div>
