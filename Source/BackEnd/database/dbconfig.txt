@@ -1,0 +1,35 @@
+SET check_function_bodies = false;
+
+CREATE TABLE "Manager"(
+  manager_id serial NOT NULL,
+  manager_name varchar(255) NOT NULL,
+  email varchar(255) NOT NULL UNIQUE,
+  "password" varchar(255) NOT NULL,
+  CONSTRAINT "Manager_pkey" PRIMARY KEY(manager_id)
+);
+
+CREATE TABLE "Vallet"(
+  vallet_id serial NOT NULL UNIQUE,
+  rfid_code varchar(255) NOT NULL,
+  vallet_name varchar(255) NOT NULL,
+  fk_manager_id integer NOT NULL,
+  CONSTRAINT "Vallet_pkey" PRIMARY KEY(rfid_code)
+);
+
+CREATE TABLE "order"(
+  id_order serial NOT NULL,
+  pick_up_date timestamp NOT NULL,
+  deliver_date timestamp,
+  prism integer NOT NULL,
+  status integer NOT NULL DEFAULT 0,
+  fk_rfid_code varchar(255) NOT NULL,
+  CONSTRAINT order_pkey PRIMARY KEY(id_order)
+);
+
+ALTER TABLE "Vallet"
+  ADD CONSTRAINT "Vallet_fk_manager_id_fkey"
+    FOREIGN KEY (fk_manager_id) REFERENCES "Manager" (manager_id);
+
+ALTER TABLE "order"
+  ADD CONSTRAINT order_fk_rfid_code_fkey
+    FOREIGN KEY (fk_rfid_code) REFERENCES "Vallet" (rfid_code);

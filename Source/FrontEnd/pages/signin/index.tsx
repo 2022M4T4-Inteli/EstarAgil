@@ -16,25 +16,22 @@ export default function Activities() {
         <Image
           className="top-img"
           src={logo}
-          width={260}
-          height={180}
+          width={220} //260
+          height={140} //180
           alt=""
         />
         <div className="container">
           <div className="input">
             <label htmlFor="email">Email:</label>
-            <input type="text" />
+            <input type="email" />
           </div>
           <div className="input">
             <label htmlFor="password">Password:</label>
-            <input type="text" />
+            <input type="password" />
           </div>
 
           <button>confirmar</button>
 
-          <a href="#" className="forgot-password">
-            Esqueci a senha
-          </a>
         </div>
       </div>
     </Background>

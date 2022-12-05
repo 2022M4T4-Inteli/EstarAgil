@@ -9,6 +9,8 @@ export const Container = styled.div`
   padding: 0 10px;
   align-items: center;
   height: 80vh;
+  overflow: hidden;
+  overflow-y: auto;
   > div {
     display: flex;
     align-items: center;

@@ -24,9 +24,10 @@ cursor: pointer;
     align-self: center;
     margin: auto;
     justify-content: center;
+    margin-top: 20px;
   }
   .content {
-    margin-top: 100px;
+    margin-top: 90px;
     /* background-color: bisque; */
     display: flex;
     flex-direction: column;

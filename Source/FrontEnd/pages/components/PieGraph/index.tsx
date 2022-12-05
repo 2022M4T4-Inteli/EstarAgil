@@ -67,20 +67,20 @@ const PieGraph = () => {
       <div className="captions">
         <div className="item">
           <span />
-          <h5>Até 30m</h5>
+          <h5>Até 5m</h5>
         </div>
         <div className="item">
           <span />
-          <h5>entre 30m e 60m</h5>
+          <h5>entre 5m e 15m</h5>
         </div>
 
         <div className="item">
           <span />
-          <h5>entre 60m e 90m</h5>
+          <h5>entre 15m e 25m</h5>
         </div>
         <div className="item">
           <span />
-          <h5>mais de 120m</h5>
+          <h5>mais de 25m</h5>
         </div>
       </div>
     </Content>

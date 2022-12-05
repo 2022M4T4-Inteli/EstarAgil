@@ -25,21 +25,26 @@ export const Background = styled.div`
     justify-content: center;
     flex-direction: column;
   }
+  .content Image{
+    margin-top: 10px;
+  }
+
   .container {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
     width: 70%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
+  
   .content .input {
     display: flex;
     flex-direction: column;
     width: 100%;
   }
   .content .input + .input {
-    margin-top: 24px;
+    margin-top: 15px;
   }
   .content .input label {
     font-family: "Calibri";
@@ -51,7 +56,7 @@ export const Background = styled.div`
     color: #000000;
   }
   .content button {
-    margin-top: 50px;
+    margin-top: 20px;
     width: 90%;
     height: 60px;
     cursor: pointer;

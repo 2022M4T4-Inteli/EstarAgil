@@ -28,12 +28,12 @@ export default function CardEmpComponent({ ...props }) {
             <p>João Pedro</p>
           </div>
           <div>
-            <b>Cliente:&nbsp;</b>
-            <p>Osvaldo Cruz</p>
+            <b>ID:&nbsp;</b>
+            <p>4444444</p>
           </div>
           <div>
-            <b>Placa:&nbsp;</b>
-            <p>XXXXXX</p>
+            <b>Status:&nbsp;</b>
+            <p>Ativo</p>
           </div>
         </div>
       </div>
