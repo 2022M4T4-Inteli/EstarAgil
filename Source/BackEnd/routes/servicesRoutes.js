@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const orderController = require('../controllers/orders')
+const orderController = require('../controllers/services')
 
 router.get('/servicesById/:fk_rfid_code/:id_order', orderController.servicesById);
 router.post('/addService', orderController.addService);
