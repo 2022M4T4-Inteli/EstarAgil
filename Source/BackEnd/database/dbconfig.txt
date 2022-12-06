@@ -21,7 +21,7 @@ CREATE TABLE "services"(
   estimate_time float NOT NULL,
   distance float NOT NULL,
   prism integer NOT NULL,
-  status integer NOT NULL DEFAULT 0,
+  status varchar(255) NOT NULL,
   fk_rfid_code varchar(255) NOT NULL,
   CONSTRAINT services_pkey PRIMARY KEY(service_id)
 );
