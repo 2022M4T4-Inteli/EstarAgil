@@ -9,7 +9,7 @@ const cors = require('cors');
 const index = require('./routes/index');
 const managerRoute = require('./routes/managerRoutes');
 const valletRoute = require('./routes/valletRoutes');
-const orderRoute = require('./routes/orderRoutes');
+const serviceRoute = require('./routes/servicesRoutes');
 
 //Monitoring requests in console
 app.use(morgan('dev'));
@@ -25,7 +25,7 @@ app.use(cors());
 app.use(index);
 app.use('/api',managerRoute);
 app.use('/api',valletRoute);
-app.use('/api',orderRoute);
+app.use('/api',serviceRoute);
 
 //Error status
 app.use((req,res, next) => {
