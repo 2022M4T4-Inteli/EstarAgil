@@ -29,10 +29,16 @@ Mapear com precisão todo o deslocamento do veículo manipulado pelo manobrista.
   &emsp;| T4_G3_V01_IoT_Document.pdf<br>
   &emsp;| T4_G3_V01_IoT_Document.docx<br>
 |--> Source<br>
-  &emsp;|--> T4_G4_V01_IoT_Development.cpp<br>
+  &emsp;|--> BackEnd<br>
+  &emsp;|--> Codigo Fonte - IoT<br>
+  &emsp;|--> FrontEnd<br>
+  &emsp;|--> Prototipação da Interface do Usuário<br>
+  &emsp;| Protótipo hardware.pdf<br>
 | readme.md<br>
 | license.txt
 
 - <b>readme.md</b>: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
 
 - <b>documentos</b>: aqui estarão todos os documentos do projeto. Há também uma pasta denominada <b>outros</b> onde estão presentes aqueles documentos complementares.
+
+- <b>Source</b>: aqui estarão todos os códigos do projeto. Estão divididos em quatro pasta para separar o que codifica o hardware da plataforma web.
