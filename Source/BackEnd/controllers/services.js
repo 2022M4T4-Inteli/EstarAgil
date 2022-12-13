@@ -25,9 +25,10 @@ exports.servicesById = async (req,res) => {
 exports.addService = async (req,res) => {
     try{
         const {estimate_time, distance, prism, status, fk_rfid_code} = req.body;
+        const time = (estimate_time*3)/60;
         const response = await db.query(
             "INSERT INTO services (estimate_time, distance, prism, status, fk_rfid_code) VALUES ($1, $2, $3, $4, $5)",
-            [estimate_time, distance, prism, status, fk_rfid_code]
+            [time, distance, prism, status, fk_rfid_code]
         )
         res.status(200).send({
             message: "Order added sucessfully"
@@ -60,7 +61,7 @@ exports.updateStatus = async (req,res) => {
 exports.activeServices = async (req,res) => {
     try{
         const {data} = await db.query (
-            "SELECT * FROM services WHERE status = ativo"
+            `"SELECT * FROM services WHERE status = "ativo"`
         )
         if(data.rows.length === 0){
             res.status(401)({
