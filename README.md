@@ -4,9 +4,9 @@
 <a href= "https://www.inteli.edu.br/"><img src="https://www.inteli.edu.br/wp-content/uploads/2021/08/20172028/marca_1-2.png" alt="Inteli - Instituto de Tecnologia e Liderança" border="0"></a>
 </p>
 
-# IoT Estapar
+# Prototipação de solução para IoT
 
-## Nome do Grupo
+## EstarAgil
 
 ## Integrantes: 
 - <a href="https://www.linkedin.com/in/andrelessajr/">André Lessa</a>
@@ -17,6 +17,7 @@
 - <a href="https:">Jackson Aguiar</a> 
 
 ## 📝 Descrição
+Mapear com precisão todo o deslocamento do veículo manipulado pelo manobrista. De modo que a solução possa transmitir informação em uma área fechada ou aberta com raio de até 1km e ser armazenada em um hardware conectado a um prisma de estacionamento comum. A solução apresentará a localização por meio de integrações com mapas, o ponto gps relacionado ao veículo, com o cálculo de todo o trajeto off-street do indicador de sinal wi-fi até um ponto pré-definido e fixo. O esboço da lista de placas ou fila, se caracteriza por um item não prioritário mas que atende as necessidades de mapeamento.
 
 
 
