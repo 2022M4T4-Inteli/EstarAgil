@@ -5,45 +5,43 @@
 #include <SPI.h>
 #include <HTTPClient.h>
 #include <Arduino_JSON.h>
-#include <TimeLib.h>
 
 // Definindo as entradas
-#define RFID_SS_SDA 21
-#define RFID_RST 14 
+#define RFID_SS_SDA 21 // pin SDA do RFID
+#define RFID_RST 14  // pin RST do RFID
 
 // Definindo os leds e buzzer
-#define led_blue 2
-#define led_green 5
-#define buzzer 18
-#define led_red 7
-#define prism 666
+#define led_blue 2 // pin do led azul
+#define led_green 5 // pin do led verde
+#define buzzer 18 // pin do buzzer
+#define led_red 7 // pin do led vermelho
+#define prism 666 // constante para o código do prisma
 
 // Variaveis para receber valores dados pelo FTM
-float distance;
-int estimateOrder;
-int counter = 0;
+float distance; // variável para armazenar a distância medida pelo FTM
+float estimateOrder; // variável para armazenar o tempo estimado para chegar até o objeto
+int counter = 0; // variável contadora
 
-const char *input = "entrada";
-const char *output = "saida";
+char *rfid_code; // ponteiro para o código RFID lido pelo RFID
 
-char *rfid_code;
+float i = 0;
 
-float index5; // Index da função count
+float index3; // Index da função count
 
 // Transformar em JSON os valores recibidos por readJson
-JSONVar readJson;
+JSONVar readJson; // variável para armazenar o JSON recebido
 
 // Estabelecendo conexões
-const char *ssid = "Inteli-COLLEGE";
-const char *password = "QazWsx@123";
-const char *serverName = "http://10.128.64.223:4005/api/addService";
+const char *ssid = "Inteli-COLLEGE"; // SSID da rede WiFi para se conectar à API
+const char *password = "QazWsx@123"; // senha da rede WiFi para se conectar à API
+const char *serverName = "http://10.128.1.54:4005/api/addService"; // endereço da API
 
 // const char *ssid = "SHARE-RESIDENTE";
 // const char *password = "Share@residente";
 // const char *serverName = "http://10.254.17.106:4005/api/addService";
 
-const char *ssidFTM = "Rede_quarteto";
-const char *passwordFTM = "Rede_quarteto4";
+const char *ssidFTM = "Rede_quarteto"; // SSID da rede WiFi para se conectar ao FTM
+const char *passwordFTM = "Rede_quarteto4"; // senha da rede WiFi para se conectar ao FTM
 
 // Funcao para conectar com a API
 void apiConnect(const char *ssid, const char *password, const char *serverName, int prismCode, float distanceOrder, float estimateOrder, char *rfid_code,const char *ssidFTM, const char *passwordFTM){
@@ -65,11 +63,10 @@ void apiConnect(const char *ssid, const char *password, const char *serverName, 
   
   //Se o Wifi conectar criar o cliente para conectar com nossa API
   if(WiFi.status() == WL_CONNECTED){
-    WiFiClient client;
     HTTPClient http;
 
     //Conectar URL
-    http.begin(client, serverName);
+    http.begin(serverName);
     http.addHeader("Content-Type", "application/json");
 
     //JSON que serao enviados
@@ -93,17 +90,12 @@ void apiConnect(const char *ssid, const char *password, const char *serverName, 
     delay(500);
     //Conecta com o Wi-Fi que mede distancia
     Serial.println("Connecting to FTM");
+
+    WiFi.disconnect();
+    
     WiFi.begin(ssidFTM, passwordFTM);
   }
   
-}
-
-
-float count(float i) {
-  for (i; counter == 2; i++) {
-    delay(30000);
-    return i;
-  }
 }
 
 int iniciar = 0;
@@ -131,19 +123,19 @@ void onFtmReport(arduino_event_t *event) {
     distance = (float)report->dist_est / 100.0 - 39.8;
 
     Serial.printf("Distância Estimada: %.2f m, Tempo de Resposta: %u ns\n", distance , report->rtt_est);// Cálculo da distância.
-    // distancia = (float)report->dist_est / 100.0 - 39.8, report->rtt_est);
     
     estimateOrder = (float)(report->dist_est / 100.0 - 39.8) / 2.7;
+    
     // O veículo a 10km/h divido por 3,6 demonstra 2,7 m/s
+    
     Serial.println(estimateOrder); //Transformando distância em tempos estimado por m/s.
     
 
     // Ponteiro para Relatório FTM com múltiplas entradas, vai ser liberado após o uso.
     delay(3000);
-    free(report->ftm_report_data);
-
-    // Se a velocidade for menor que if((float)(report->dist_est / 100.0 - 39.8) / 2.7) > 2, pede para o esp parar, talvez com o break.
+   // free(report->ftm_report_data);
   }
+
   else {
     Serial.print("FTM Error: "); // Em caso de não sucesso, haverá mensagem de Error
     Serial.println(status_str[report->status]);
@@ -189,6 +181,14 @@ void getFtmReport(){
     delay(25);
 
   } //Em caso de sucesso irá aguardar o sinal de que o relatório foi recebido e retornar o verdadeiro.
+  if(counter == 1){
+    i++;
+    delay(3000);
+  }
+  Serial.print("i = ");
+  Serial.println(i);
+  Serial.print("counter = ");
+  Serial.println(counter);
 }
 
 //Término das funções para reconhecer o Wifi.
@@ -286,6 +286,7 @@ LeitorRFID *leitor = NULL;
 
 //setup de definição de entrada e saída
 void setup() {
+
   Serial.begin(115200);
   SPI.begin();
   pinMode(led_blue, OUTPUT);
@@ -331,27 +332,32 @@ void setup() {
   Serial.print(" and Burst Period ");
   Serial.print(FTM_BURST_PERIOD * 100);
   Serial.println(" ms");
-
 }
 void loop() {
   //verificação da leitura de cartão
   leitor->leCartao();
 
   if(leitor->cartaoFoiLido() && counter == 0){
+    counter++;
     Serial.println(leitor->tipoCartao());
     Serial.println(leitor->cartaoLido());
-    counter = 1;
-    float index2 = count(index5);
     leitor->cartaoLido();
     leitor->resetarLeitura();
     delay(3000);
   }
   else if (leitor -> cartaoFoiLido() && counter == 1){
-    counter = 2;
-    float index3 = count(index5);
+
+    counter++;
+
+    float index3 = i;
+
     rfid_code = leitor->cartaoLido();
 
     apiConnect(ssid,password,serverName,prism,distance,index3,rfid_code,ssidFTM,passwordFTM); 
+
+    i = 0;
+
+    leitor->resetarLeitura();
 
   }
   else if (leitor -> cartaoFoiLido() && counter == 2){
@@ -363,8 +369,8 @@ void loop() {
     delay(3000);
     counter = 0;
   }
+
   // loop de verificação da distância do Wifi
   getFtmReport();
   delay(200);
-
 }
