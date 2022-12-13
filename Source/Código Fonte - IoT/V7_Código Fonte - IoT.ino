@@ -24,7 +24,7 @@ int counter = 0; // variável contadora
 
 char *rfid_code; // ponteiro para o código RFID lido pelo RFID
 
-float i = 0;
+float i = 0; // Contador de tempo a cada 3 segundos
 
 float index3; // Index da função count
 
@@ -34,7 +34,7 @@ JSONVar readJson; // variável para armazenar o JSON recebido
 // Estabelecendo conexões
 const char *ssid = "Inteli-COLLEGE"; // SSID da rede WiFi para se conectar à API
 const char *password = "QazWsx@123"; // senha da rede WiFi para se conectar à API
-const char *serverName = "http://10.128.1.54:4005/api/addService"; // endereço da API
+const char *serverName = "http://10.128.64.129:4005/api/addService"; // endereço da API
 
 // const char *ssid = "SHARE-RESIDENTE";
 // const char *password = "Share@residente";
@@ -45,6 +45,10 @@ const char *passwordFTM = "Rede_quarteto4"; // senha da rede WiFi para se conect
 
 // Funcao para conectar com a API
 void apiConnect(const char *ssid, const char *password, const char *serverName, int prismCode, float distanceOrder, float estimateOrder, char *rfid_code,const char *ssidFTM, const char *passwordFTM){
+
+  WiFi.disconnect();
+  delay(3000);
+  
   //Iniciando o WIFI Local
   WiFi.begin(ssid,password);
   Serial.print("Connecting to WiFi API");
@@ -54,7 +58,8 @@ void apiConnect(const char *ssid, const char *password, const char *serverName, 
     Serial.print(".");
     delay(1000);
   }
-
+  
+  delay(3000);
   //Visualizando o status da conexecao e IP do wifi
   Serial.print("\Connected to WiFi ");
   Serial.println(ssid);
@@ -93,6 +98,8 @@ void apiConnect(const char *ssid, const char *password, const char *serverName, 
 
     WiFi.disconnect();
     
+    delay(3000);
+
     WiFi.begin(ssidFTM, passwordFTM);
   }
   
@@ -358,6 +365,7 @@ void loop() {
     i = 0;
 
     leitor->resetarLeitura();
+    delay(3000);
 
   }
   else if (leitor -> cartaoFoiLido() && counter == 2){
