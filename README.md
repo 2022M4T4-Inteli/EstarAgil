@@ -26,8 +26,11 @@ Mapear com precisão todo o deslocamento do veículo manipulado pelo manobrista.
 
 |--> documentos<br>
   &emsp;| --> outros <br>
-  &emsp;| T4_G3_V01_IoT_Document.pdf<br>
-  &emsp;| T4_G3_V01_IoT_Document.docx<br>
+  &emsp;| T4_G3_V05_IoT_Document.pdf<br>
+  &emsp;| T4_G3_V05_IoT_Document.docx<br>
+  
+  &emsp;| T4_G3_V03_Manual_de_Instruções.pdf<br>
+  &emsp;| T4_G3_V03_Manual_de_Intruções.docx<br>
 |--> Source<br>
   &emsp;|--> BackEnd<br>
   &emsp;|--> Codigo Fonte - IoT<br>
