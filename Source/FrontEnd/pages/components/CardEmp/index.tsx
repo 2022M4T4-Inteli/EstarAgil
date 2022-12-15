@@ -4,7 +4,7 @@ import { Card } from "./style";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 function GraphCMSImageLoader({ src, width }: any) {
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
+  return `https://cdn-icons-png.flaticon.com/512/149/149071.png`;
 }
 
 //função que renderiza um componente do card do motorista
@@ -25,11 +25,11 @@ export default function CardEmpComponent({ ...props }) {
         <div className="info">
           <div>
             <b>Motorista:&nbsp;</b>
-            <p>João Pedro</p>
+            <p>{props.data.vallet_name}</p>
           </div>
           <div>
             <b>ID:&nbsp;</b>
-            <p>4444444</p>
+            <p>{props.data.rfid_code}</p>
           </div>
           <div>
             <b>Status:&nbsp;</b>

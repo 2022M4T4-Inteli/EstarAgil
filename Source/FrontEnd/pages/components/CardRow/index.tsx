@@ -5,7 +5,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 function GraphCMSImageLoader({ src, width }: any) {
   const relativeSrc = (src: any) => src.split("/").pop();
 
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
+  return `https://cdn-icons-png.flaticon.com/512/149/149071.png`;
 }
 
 export default function CardRowComponent({ ...props }) {

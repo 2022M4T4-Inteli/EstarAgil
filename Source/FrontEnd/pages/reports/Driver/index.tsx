@@ -13,7 +13,8 @@ function GraphCMSImageLoader({ src, width }: any) {
 }
 
 //função que retorna o componente de relatorio do motorista, tela que apresenta dados mais detalhados
-export default function DriverReport() {
+export default function DriverReport({...props}) {
+  console.log(props.data);
   return (
     <div>
       <Container>
@@ -27,11 +28,11 @@ export default function DriverReport() {
               loader={GraphCMSImageLoader}
             />
             <h1>
-              Tarcisio Souza
-              <p>#444444</p>
+              {props.data.vallet_name}
+              <p>#{props.data.rfid_code}</p>
             </h1>
 
-            <p>Aqui está os indicadores do mês do manobrista Tarcisio Souza</p>
+            <p>Aqui está os indicadores do mês do manobrista {props.data.vallet_name}</p>
           </div>
         </div>
         <div>

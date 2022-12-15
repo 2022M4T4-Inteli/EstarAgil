@@ -117,9 +117,9 @@ export const Container = styled.div`
     /* gap: 10px; */
     width: 100%;
     height: 70vh;
-    align-content: center;
+    /* align-content: center; */
     justify-items: center;
-    align-items: center;
+    /* align-items: center; */
   }
   body {
     display: contents;
