@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+require("dotenv").config();
+
 //API Routes
 const index = require('./routes/index');
 const managerRoute = require('./routes/managerRoutes');
