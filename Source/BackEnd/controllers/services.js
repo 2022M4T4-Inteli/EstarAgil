@@ -3,21 +3,21 @@ const db = require('../database/db');
 // View order
 exports.servicesById = async (req,res) => {
     try{
-        const { service_id , fk_rfid_code } = req.params;
+        const { service_id } = req.params;
         const response = await db.query(
-            "SELECT * FROM services WHERE id_order = $1 AND fk_rfid_code = $2",[id_order, fk_rfid_code]
+            "SELECT * FROM services WHERE service_id = $1 ",[service_id]
         )
         const data = response.rows
         if(data.length === 0){
             res.status(401).send({
-                error: "Order not registered",
+                error: "Service not registered",
             })
         } else {
             res.status(200).send(data);
         }
     } catch{
         res.status(500).send({
-            error: "Database error while registering user!",
+            error: "Database error",
         })
     }
 }
@@ -30,11 +30,11 @@ exports.addService = async (req,res) => {
             [estimate_time, distance, prism, status, fk_rfid_code]
         )
         res.status(200).send({
-            message: "Order added sucessfully"
+            message: "Service added sucessfully"
         })
     } catch{
         res.status(500).send({
-            error: "Database error while registering user!",
+            error: "Database error",
         })
     }
 }
@@ -43,7 +43,7 @@ exports.updateStatus = async (req,res) => {
     const {service_id} = req.params;
     const {status} = req.body;
     try{
-        const {response} = await db.query(
+        const response = await db.query(
             "UPDATE services SET status = $1 WHERE service_id = $2",[status, service_id]
         )
         res.status(200).send({
@@ -52,26 +52,27 @@ exports.updateStatus = async (req,res) => {
         
     } catch{
         res.status(500).send({
-            error: "Database error while registering user!",
+            error: "Database error",
         })
     }
 }
 
 exports.activeServices = async (req,res) => {
     try{
-        const {data} = await db.query (
-            `"SELECT * FROM services WHERE status = "ativo"`
+        const data = await db.query(
+            "SELECT * FROM services WHERE status = 'ativo'"
         )
-        if(data.rows.length === 0){
+        const response = data.rows
+        if(response.length === 0){
             res.status(401)({
                 message: "There is no active service",
             });
         } else {
-            res.status(401)(data);
+            res.status(200).send(response);
         }
-    } catch{
+    } catch(error) {
         res.status(500).send({
-            error: "Database error while registering user!",
+            error: "Database error",
         })
     }
 }
