@@ -20,7 +20,7 @@
 // Variaveis para receber valores dados pelo FTM
 float distance; // variável para armazenar a distância medida pelo FTM
 float estimateOrder; // variável para armazenar o tempo estimado para chegar até o objeto
-int counter = 0; // variável contadora
+int counter = 0; // variável que irá contar o número de leituras no RFID
 
 char *rfid_code; // ponteiro para o código RFID lido pelo RFID
 
@@ -188,10 +188,13 @@ void getFtmReport(){
     delay(25);
 
   } //Em caso de sucesso irá aguardar o sinal de que o relatório foi recebido e retornar o verdadeiro.
+  
   if(counter == 1){
     i++;
     delay(3000);
   }
+
+  //Verificar contagem de leituras do rfid e tempo no serial
   Serial.print("i = ");
   Serial.println(i);
   Serial.print("counter = ");
@@ -330,7 +333,7 @@ void setup() {
   delay(1000);
   digitalWrite(led_red, LOW);
   delay(80);
-  }
+  } // caso o wi-fi não esteja conectado irá iniciar esse loop
 
   Serial.println("");
   Serial.println("WiFi Connected");
@@ -344,41 +347,37 @@ void loop() {
   //verificação da leitura de cartão
   leitor->leCartao();
 
+  // leitor irá ler o cartão e quantas leituras realizadas nessa situação o carro está sendo pego para estacionar
   if(leitor->cartaoFoiLido() && counter == 0){
-    counter++;
-    Serial.println(leitor->tipoCartao());
-    Serial.println(leitor->cartaoLido());
-    leitor->cartaoLido();
-    leitor->resetarLeitura();
-    delay(3000);
+    counter++; // adicionar que foi lido uma vez
+    Serial.println(leitor->tipoCartao()); // verificar tipo do cartão
+    Serial.println(leitor->cartaoLido()); // verificar código do cartão lido
+    leitor->cartaoLido(); // ler cartão
+    leitor->resetarLeitura(); // resetar leitura
+    delay(3000); // tempo para conectar e desconectar
   }
+  // nessa situação o carro irá estar estacionado
   else if (leitor -> cartaoFoiLido() && counter == 1){
-
-    counter++;
-
-    float index3 = i;
-
-    rfid_code = leitor->cartaoLido();
-
-    apiConnect(ssid,password,serverName,prism,distance,index3,rfid_code,ssidFTM,passwordFTM); 
-
-    i = 0;
-
+    counter++; // adicionar que foi lido uma vez
+    float index3 = i; // salvar tempo em uma váriavel 
+    rfid_code = leitor->cartaoLido(); // salvar código do rfid
+    apiConnect(ssid,password,serverName,prism,distance,index3,rfid_code,ssidFTM,passwordFTM); // chamar função que conecta na api
+    i = 0; // zerar a contagem, pois encerra o ciclo
     leitor->resetarLeitura();
-    delay(3000);
-
+    delay(3000); // tempo para conectar e desconectar
   }
+  // nessa situação o carro irá ser devolvido
   else if (leitor -> cartaoFoiLido() && counter == 2){
-    Serial.println(leitor->tipoCartao());
-    Serial.println(leitor->cartaoLido());
-    rfid_code = leitor->cartaoLido();
-    apiConnect(ssid,password,serverName,prism,distance,estimateOrder,rfid_code,ssidFTM,passwordFTM); 
-    leitor->resetarLeitura();
-    delay(3000);
-    counter = 0;
+    Serial.println(leitor->tipoCartao()); // verificar tipo do cartão
+    Serial.println(leitor->cartaoLido()); // verificar código do cartão lido
+    rfid_code = leitor->cartaoLido(); // salvar o código do rfid
+    apiConnect(ssid,password,serverName,prism,distance,estimateOrder,rfid_code,ssidFTM,passwordFTM); // chamar função que conecta na api
+    leitor->resetarLeitura(); // resetar leitura
+    delay(3000); // tempo para conectar e desconectar
+    counter = 0; // zerar a quantidade de leitura pelo encerramento do ciclo
   }
 
-  // loop de verificação da distância do Wifi
+  // loop de verificação da distância do Wifi e tempo estimado
   getFtmReport();
   delay(200);
 }
