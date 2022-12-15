@@ -7,9 +7,9 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import API_VALET from "../api/valet";
 
-//função para download da iamgem do card
+//função que retorna o caminho da imagem a ser feito download para exibição
 function GraphCMSImageLoader({ src, width }: any) {
-  return `https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Henry_Cavill_by_Gage_Skidmore.jpg/${src}`;
+  return `https://cdn-icons-png.flaticon.com/512/149/149071.png`;
 }
 
 //função que retorna todas a tela de todas as atividades de todos os motoristas
@@ -18,6 +18,7 @@ export default function Activities() {
   const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
 
   const [data, setData] = useState([]);
+  const [selected, setSelected] = useState<any>({});
 
   const {
     register,
@@ -36,7 +37,8 @@ export default function Activities() {
       setData(value.data);
     });
   };
-  function openModalDetails() {
+  function openModalDetails(e: any) {
+    setSelected(e);
     setDetailsModalIsOpen(true);
   }
   function closeModalDetails() {
@@ -49,11 +51,11 @@ export default function Activities() {
     setCreateModalIsOpen(false);
   }
 
-  const onSubmit = useCallback(async (data) => {
+  const onSubmit = useCallback(async (data: any) => {
     // signIn(data);
     await API_VALET.create(data).then(() => {
       closeModalCreate();
-    getData();
+      getData();
     });
     // console.log(data);
   }, []);
@@ -95,11 +97,11 @@ export default function Activities() {
         onClose={closeModalDetails}
       >
         <DetailsModalContainer>
-          <h2>Tarcisio Souza</h2>
+          <h2>{selected.vallet_name}</h2>
           <div className="content">
             <div className="image">
               <Image
-                src="800px-Henry_Cavill_by_Gage_Skidmore.jpg"
+                src="149071.png"
                 width={50}
                 height={50}
                 alt=""
@@ -109,7 +111,7 @@ export default function Activities() {
             <div className="info">
               <h2>Estou a caminho!</h2>
               <br />
-              <p>Chegando em 10 minutos</p>
+              <p>Chegando em {selected.estimate_time} minutos</p>
 
               <div className="progress">
                 <span className="active"></span>
@@ -120,7 +122,7 @@ export default function Activities() {
 
               <h4>últimas informações:</h4>
 
-              <p>Prisma: 230</p>
+              <p>Prisma: {selected.prism}</p>
               <p>Horário de saída: 14:50</p>
               <p>Ultima corrida: 24/10/2022 às 14:50</p>
             </div>
@@ -141,7 +143,7 @@ export default function Activities() {
             <CardEmpComponent
               data={e}
               key={e}
-              onClick={openModalDetails}
+              onClick={() => openModalDetails(e)}
               onEdit={openModalCreate}
               onDelete={() =>
                 API_VALET.delete(e.vallet_id).then(() => getData())

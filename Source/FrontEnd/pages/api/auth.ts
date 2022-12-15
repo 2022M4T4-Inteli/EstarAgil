@@ -8,9 +8,10 @@ import axios from "axios";
 
 const host = process.env.HOST || "127.0.0.1";
 
+
 const API = `http://${host}:4005/api/login`;
 //aqui ficará todas as apis de integração com o back-end
 const API_AUTH = {
-  create: (data) => axios.post(API, data),
+  create: (data: any) => axios.post(API, data),
 };
 export default API_AUTH;

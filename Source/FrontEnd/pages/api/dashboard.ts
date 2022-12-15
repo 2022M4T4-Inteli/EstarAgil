@@ -13,6 +13,6 @@ const API = `http://${host}:4005/api/login`;
 const API_DRIVER = {
 //   create: (data) => axios.post(API, data),
 //   update: (data) => axios.post(API, data),
-  getInfos: (data) => axios.get(API, data),
+  getInfos: (data: any) => axios.get(API, data),
 };
 export default API_DRIVER;

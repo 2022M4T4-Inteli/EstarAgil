@@ -25,15 +25,15 @@ export default function CardRowComponent({ ...props }) {
         <div className="info">
           <div>
             <b>Motorista:&nbsp;</b>
-            <p>João Pedro</p>
+            <p>{props.data.vallet_name}</p>
           </div>
           <div>
             <b>Estimativa:&nbsp;</b>
-            <p>10</p>
+            <p>{props.data.estimate_time}</p>
           </div>
           <div>
             <b>Prisma:&nbsp;</b>
-            <p>230</p>
+            <p>{props.data.prism}</p>
           </div>
         </div>
       </div>

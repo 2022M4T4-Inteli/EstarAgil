@@ -22,27 +22,29 @@ function GraphCMSImageLoader({ src, width }: any) {
 export default function Dashboard() {
   const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false);
   const [data, setData] = useState([]);
-  function openModalDetails() {
-    setDetailsModalIsOpen(true);
-  }
-  function closeModalDetails() {
-    setDetailsModalIsOpen(false);
-  }
+  const [selected, setSelected] = useState<any>({});
+  // function openModalDetails(data: any) {
+  //   setSelected(data);
+  //   setDetailsModalIsOpen(true);
+  // }
+  // function closeModalDetails() {
+  //   setDetailsModalIsOpen(false);
+  // }
   useEffect(() => {
-    // fetchData();
+    fetchData();
   }, []);
 
-  // const fetchData = () => {
-  //   API_SERVICES.get().then((value) => setData(value.data));
-  // };
+  const fetchData = () => {
+    API_SERVICES.get().then((value) => setData(value.data));
+  };
   return (
     <>
-      <ModalComponent
+      {/* <ModalComponent
         modalIsOpen={detailsModalIsOpen}
         onClose={closeModalDetails}
       >
         <DetailsModalContainer>
-          <h2>Tarcisio Souza</h2>
+          <h2>{selected.vallet_name}</h2>
           <div className="content">
             <div className="image">
               <Image
@@ -56,7 +58,7 @@ export default function Dashboard() {
             <div className="info">
               <h2>Estou a caminho!</h2>
               <br />
-              <p>Chegando em 10 minutos</p>
+              <p>Chegando em {selected.estimate_time} minutos</p>
 
               <div className="progress">
                 <span className="active"></span>
@@ -67,13 +69,13 @@ export default function Dashboard() {
 
               <h4>últimas informações:</h4>
 
-              <p>Prisma: 230</p>
+              <p>Prisma: {selected.prism}</p>
               <p>Horário de saída: 14:50</p>
               <p>Ultima corrida: 24/10/2022 às 14:50</p>
             </div>
           </div>
         </DetailsModalContainer>
-      </ModalComponent>
+      </ModalComponent> */}
 
       <div>
         <Container>
@@ -86,7 +88,7 @@ export default function Dashboard() {
                 height={100}
                 loader={GraphCMSImageLoader}
               />
-              <h1>Olá, Edvaldo!</h1>
+              <h1>Olá!</h1>
               <p>
                 Bem vindo ao menu inicial, aqui você pode acessar as atividades
                 ativas e visualizar os dados semanais de produtividade.
@@ -125,8 +127,12 @@ export default function Dashboard() {
             <h1>Fila de Carros</h1>
             <br />
             <div className="list-cards">
-              {[1, 2, 3, 4, 5, 6].map((e) => (
-                <CardRowComponent key={e} onClick={openModalDetails} />
+              {data.map((e) => (
+                <CardRowComponent
+                  key={e}
+                  data={e}
+                  onClick={() =>{}}
+                />
               ))}
             </div>
           </Content>
