@@ -60,8 +60,9 @@ exports.updateStatus = async (req, res) => {
 
 exports.activeServices = async (req, res) => {
   try {
+    const {limit} = req.query;
     const data = await db.query(
-      "SELECT * FROM services INNER JOIN vallet V ON V.rfid_Code = services.fk_rfid_code WHERE status = 'ativo'"
+      "SELECT * FROM services INNER JOIN vallet V ON V.rfid_Code = services.fk_rfid_code WHERE status = 'ativo' LIMIT "+ limit
     );
     const response = data.rows;
     // if(response.length === 0){
@@ -73,6 +74,7 @@ exports.activeServices = async (req, res) => {
     // }
     res.status(200).send(response);
   } catch (e) {
+    console.log(e);
     res.status(500).send({
       error: "Database error",
     });
