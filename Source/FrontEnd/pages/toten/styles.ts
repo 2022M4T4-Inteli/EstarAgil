@@ -63,15 +63,12 @@ export const Card = styled.div<any>`
   border: 2px solid #000;
 
   border-color: ${(props: any) => {
-    switch (props.time) {
-      case 5:
-        return "#70d44b";
-      case 8:
-        return "#e1da35";
-      case 10:
-        return "#d62222";
-      default:
-        break;
+    if (props.time < 5) {
+      return "#70d44b";
+    } else if (props.time < 9) {
+      return "#e1da35";
+    } else {
+      return "#d62222";
     }
   }};
 
