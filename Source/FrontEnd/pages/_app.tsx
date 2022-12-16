@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <AuthProvider>
-      {router.pathname != "/signin" && <ToolbarComponent />}
+      {router.pathname != "/signin" && router.pathname != "/toten" && <ToolbarComponent />}
       <Component {...pageProps} />
     </AuthProvider>
   );

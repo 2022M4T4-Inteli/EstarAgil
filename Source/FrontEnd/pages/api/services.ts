@@ -11,8 +11,8 @@ const host = process.env.HOST || "127.0.0.1";
 const API = `http://${host}:4005/api/`;
 //aqui ficará todas as apis de integração com o back-end
 const API_SERVICES = {
-  get: () =>
-    axios.get(API + "activeServices/"),
+  get: (limit= 5) =>
+    axios.get(API + "activeServices?limit="+limit),
   // delete: (id) => axios.delete(API, id),
 };
 export default API_SERVICES;

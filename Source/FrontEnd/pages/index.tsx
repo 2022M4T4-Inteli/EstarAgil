@@ -35,7 +35,7 @@ export default function Dashboard() {
   }, []);
 
   const fetchData = () => {
-    API_SERVICES.get().then((value) => setData(value.data));
+    API_SERVICES.get(15).then((value) => setData(value.data));
   };
   return (
     <>
