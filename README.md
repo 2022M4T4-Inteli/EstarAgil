@@ -31,12 +31,10 @@ Mapear com precisão todo o deslocamento do veículo manipulado pelo manobrista.
   
   &emsp;| T4_G3_V03_Manual_de_Instruções.pdf<br>
   &emsp;| T4_G3_V03_Manual_de_Intruções.docx<br>
-|--> Source<br>
-  &emsp;|--> BackEnd<br>
-  &emsp;|--> Codigo Fonte - IoT<br>
-  &emsp;|--> FrontEnd<br>
-  &emsp;|--> Prototipação da Interface do Usuário<br>
-  &emsp;| Protótipo hardware.pdf<br>
+|--> Src<br>
+  &emsp;|--> Backend<br>
+  &emsp;|--> Circuito<br>
+  &emsp;|--> Frontend<br>
 | readme.md<br>
 | license.txt
 
@@ -46,8 +44,15 @@ Dentre os arquivos presentes na raiz do projeto, definem-se:
 
 - <b>documentos</b>: aqui estarão todos os documentos do projeto. Há também uma pasta denominada <b>outros</b> onde estão presentes aqueles documentos complementares.
 
-- <b>Source</b>: aqui estarão todos os códigos do projeto. Estão divididos em quatro pasta para separar o que codifica o hardware da plataforma web.
+- <b>src</b>: aqui estarão todos os códigos do projeto. Estão divididos em quatro pasta para separar o que codifica o hardware da plataforma web.
 
+## 💻 Execução do projeto
+
+Um guia para a execução desse projeto pode ser encontrado no conteúdo do documento "Manual de Instruções", dentro da pasta "documentos".
+
+Se preferir, também é possível acessá-lo a partir do seguinte link:
+
+https://github.com/2022M4T4-Inteli/EstarAgil/blob/main/Documentos/T4_G3_V03_Manual%20de%20Instru%C3%A7%C3%B5es.docx.pdf
 
 ## 🗃 Histórico de lançamentos
 
